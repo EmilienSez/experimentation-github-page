@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Récupération information d'entreprise</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
+    <!-- <meta name="msapplication-TileImage" content="https://www.batirocbpl.fr/wp-content/uploads/2023/03/cropped-vignette-onglet-270x270.png"> -->
+</head>
+
+<body>
+    <li class="text-lg border border-blue-200 p-2 my-4">
+    <a class="text-blue-500 hover:text-blue-300" href="../index.html"
+    >Retour au menu principal</a>
+    </li>
+    <br>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-16">
+        <div class="col-start-2">
+            <div class="mx-auto">
+                <div class="mb-5">
+                    <button id="boutonDPETertiaire" class=""> 
+                        DPE Tertiaire
+                    </button>
+                    <button id="boutonLogementNeuf" class="">
+                        DPE Logement neufs
+                    </button>
+                    <button id="boutonLogementExistant" class="">
+                        DPE Logement Existant
+                    </button>
+                    <button id="boutonAvant2021" class="">
+                        Avant Juillet 2021
+                    </button>
+                    <button id="boutonApres2021" class="">
+                        Après Juillet 2021
+                    </button>
+                    </div>
+            </div>
+        </div>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-16">
+        <div class="col-start-2">
+            <div class="mx-auto">
+                <div class="mb-5">
+                    <label for="myForm" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Recherche Simple : </label>
+                    <input type="text" id="myInput" 
+                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    placeholder="Veuillez renseigner une adresse...">
+                </div>
+                <div class="flex space-x-4">
+                <button 
+                    type="button"
+                    class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center h-10 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                    id="boutonMyForm">Envoyer
+                </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="max-w-sm mx-auto">
+        <h1 class="block mb-2 text-xl font-medium text-gray-900 dark:text-white"> Liste des Adresses Récupérées :
+        </h1>
+    </div>
+    <div class="sm:grid lg:grid-cols-1 sm:grid-cols-2 gap-6" id="cardContainer">
+        <div class="max-w-sm mx-auto" id="centrerLesCartes">
+            <div class="mb-4" id="carteAdresse">
+                <!-- {% include 'dpe/adresse.html' %} -->
+            </div>
+        </div>
+    </div>
+    <!-- {% include 'dpe/exemple_carte.html' %} -->
+
+
+
+    <script src="script.js"></script>
+    <!-- Met à jour à chaque actualisation du site -->
+</body>
+
+</html>

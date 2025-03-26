@@ -1,0 +1,40 @@
+.couleurCarte {
+    background: rgb(202,65,19);
+    background: linear-gradient(165deg, 
+    rgba(202,65,19,1) 16.6%, 
+    rgba(202,118,34,1) 33.34%, 
+    rgba(217, 175, 52,1) 50%,
+    rgba(230, 213, 93,1) 66.67%,
+    rgba(147, 176, 32,1) 83.4%,
+    rgba(75, 114, 33,1) 100%
+    );
+}
+
+.cacherElement {
+    display: none;
+}
+
+body {
+    background: lightgrey
+}
+
+.cacherElement {
+    display: none;
+}
+
+.container {
+    width: 200px;
+    height: 120px;
+}
+
+/* Resize images */
+.container img {
+    width: 100%;
+    height: auto;
+}
+
+.texteQuiDépassePas {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
