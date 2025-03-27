@@ -1,10 +1,12 @@
+// https://stackoverflow.com/questions/43262121/trying-to-use-fetch-and-pass-in-mode-no-cors
 
 let boutonLancerTraitement = document.getElementById('lancer-traitement');
 let boutonTelecharger = document.getElementById('download-csv');
 var allData = []
 var csvData = []
 const url = "https://nominatim.openstreetmap.org/search.php?";
-const listeTypeVille =  ["town", "city"]
+const listeTypeVille =  ["town", "city","village"]
+const delayTime = 1000;
 
 // Menue de paramètrage : 
 let classBoutonActiver = "text-white bg-blue-600 hover:text-white border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center me-2 mb-2 h-10 dark:border-blue-500 dark:text-blue-500 dark:hover:text-black dark:hover:bg-gray-600 blue:focus:ring-blue-800 w-full";
@@ -83,6 +85,58 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 });
 
+function delay(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+
+// async function getInfoVille(array) {
+//   const results = []; // Tableau pour stocker les résultats
+
+//   for (const params of array) {
+//       let urlGet = `${url}city=${params[1]}&county=${params[2]}&state=${params[3]}&country=France&postalcode=${params[4]}&format=jsonv2`;
+//       console.log(urlGet)
+//       try {
+//           const requete = await fetch(urlGet, {
+//               method: 'GET',
+//               headers: { 'User-Agent': "experimentationGitHub/1.0 (emilien.sezestre@gmail.com)" },
+//           });
+          
+//           if (!requete.ok) {
+//               alert('Un problème est survenu, veuillez réessayer plus tard');
+//           } else {
+//               let donnees = await requete.json();
+              
+//               for (let index = 0; index < donnees.length; index++) {
+//                   let adressetype = donnees[index]["addresstype"];
+
+//                   if (listeTypeVille.includes(adressetype)) {
+//                       let ligneConserver = index;
+//                       let typeAdresse = donnees[ligneConserver]["addresstype"];
+//                       let nomRetour = donnees[ligneConserver]["display_name"];
+//                       let latitude = donnees[ligneConserver]["lat"];
+//                       let longitude = donnees[ligneConserver]["lon"];
+
+//                       let arrayLine = [params[0], typeAdresse, nomRetour, latitude, longitude];
+//                       results.push(arrayLine); // Ajouter le résultat au tableau
+//                       break; // Sortir de la boucle dès qu'une ville valide est trouvée
+//                   } else {
+//                       console.log("Pas une ville");
+//                   }
+//               }
+//           }
+//       } catch (error) {
+//           console.error(`Erreur lors de la requête pour ${params[1]} : ${error.message}`);
+//       }
+
+//       // Ajouter un délai entre chaque requête
+//       console.log("Ok")
+//       await delay(100); // Délai de 1000 ms (1 seconde)
+//   }
+
+//   return results; // Cela renvoie un tableau avec tous les résultats
+// }
+
 
 async function getInfoVille(array) {
   let promises = array.map(async (params) => {
@@ -90,7 +144,11 @@ async function getInfoVille(array) {
     // console.log(urlGet)
     const requete = await fetch(urlGet, {
         method: 'GET',
-        headers: {'User-Agent' : "experimentationGitHub/1.0 (emilien.sezestre@gmail.com)" },
+        headers: {
+          'User-Agent' : "experimentationGitHub/1.0 (emilien.sezestre@gmail.com)",
+          'Content-Type': 'application/json'
+
+        },
       });
     
     if(!requete.ok) {
@@ -130,7 +188,7 @@ async function lancementAnalyseArray(arrayCSV) {
   try {
       allData = await getInfoVille(arrayCSV);
       // A partir de la les requêtes Fetch sont terminées : 
-      // console.log(allData); // Affichez toutes les données une fois qu'elles sont toutes récupérées
+      console.log(allData); // Affichez toutes les données une fois qu'elles sont toutes récupérées
       boutonTelecharger.className = classBoutonActiverTelechargerCSV;
       return allData
   } catch (error) {
