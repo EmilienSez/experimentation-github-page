@@ -14,7 +14,10 @@
         <a class="text-blue-500 hover:text-blue-300" href="../index.html">Retour au menu principal</a>
     </li>
     <br>
-
+        <p class="font-bold text-2xl text-center"> Traitement de récupération des Coordonnées GPS</p>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-16">
+        <div class="col-start-2">
+            <div class="mx-auto">
     <div class="flex items-center justify-center w-full" id="drop-area">
         <label for="csvFile" class="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-gray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600">
             <div class="flex flex-col items-center justify-center pt-5 pb-6">
@@ -27,11 +30,25 @@
             <input type="file" id="csvFile" name="csvFile" accept=".csv" required />
         </label>
     </div> 
-
+    <br>
+    <a href="#" class="w-full sm:w-auto">
+    <button type="submit" id="lancer-traitement"
+    class=""
+    >Lancer le traitement</button>
+    </a>
+    <a href="#" class="w-full sm:w-auto">
+        <button id="download-csv" type="submit" class="">
+            <svg class="w-3.5 h-3.5 me-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 21">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 1v11m0 0 4-4m-4 4L4 8m11 4v3a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2v-3"/>
+            </svg>
+            Télécharger le CSV
+        </button>
+    </a>
+</div>
+</div>
+</div>
     <div id="file-info"></div>
     <pre id="csv-content"></pre>
-    
-    <button id="boutonTest"> bouton test</button>
 
     <script src="script.js"></script>
 </body>
