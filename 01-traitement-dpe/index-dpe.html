@@ -10,59 +10,70 @@
     <!-- <meta name="msapplication-TileImage" content="https://www.batirocbpl.fr/wp-content/uploads/2023/03/cropped-vignette-onglet-270x270.png"> -->
 </head>
 
-<body>
-    <li class="text-lg border border-blue-200 p-2 my-4">
-    <a class="text-blue-500 hover:text-blue-300" href="../index.html"
-    >Retour au menu principal</a>
-    </li>
-    <p class="font-bold text-2xl text-center"> Traitement de récupération des DPE</p>
-    <br>
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-16">
-        <div class="col-start-2">
-            <div class="mx-auto">
-                <div class="mb-5">
-                    <button id="boutonDPETertiaire" class=""> 
-                        DPE Tertiaire
-                    </button>
-                    <button id="boutonLogementNeuf" class="">
-                        DPE Logement neufs
-                    </button>
-                    <button id="boutonLogementExistant" class="">
-                        DPE Logement Existant
-                    </button>
-                    <button id="boutonAvant2021" class="">
-                        Avant Juillet 2021
-                    </button>
-                    <button id="boutonApres2021" class="">
-                        Après Juillet 2021
-                    </button>
-                    </div>
+<body class="bg-[#ccd5ae]">
+    <!-- Barre horizontale -->
+    <div class="w-full h-20 bg-[#fffade] flex items-center px-4">
+        <a href="../index.html">
+            <!-- Icône en haut à gauche -->
+            <img src="../static/Home-Logo.png" alt="Logo" class="h-14 w-14">
+        </a>
+    </div>
+    <p class="font-bold text-3xl text-center mt-3 mb-2"> Traitement de récupération des DPE</p>
+    <div class="mt-8 flex justify-center">
+
+        <div class="bg-[#a5b68d] rounded-2xl overflow-hidden shadow-md items-center p-2 w-[650px]">
+            <h2 class="text-center text-xl underline font-bold">Choix de l'API</h2>
+            <div class="flex gap-4">
+            <div class="w-1/2 flex flex-col items-center justify-center p-4">
+                <a href="#" id="boutonDPETertiaire" class="w-70 h-15 text-2xl text-center mb-2 mt-2 px-2 py-2 border-4 border-yellow-400 text-gray-700 bg-[#fffade] rounded-xl hover:bg-yellow-400 transition">
+                    DPE Tertiaire
+                </a>
+                <a href="#" id="boutonLogementNeuf" class="w-70 h-15 text-2xl text-center mb-2 mt-2 px-2 py-2 border-4 border-yellow-400 text-gray-700 bg-[#fffade] rounded-xl hover:bg-yellow-400 transition">
+                    DPE Logement Neuf
+                </a>
+                <a href="#" id="boutonLogementExistant" class="w-70 h-15 text-2xl text-center mb-2 mt-2 px-2 py-2 border-4 border-yellow-400 text-gray-700 bg-[#fffade] rounded-xl hover:bg-yellow-400 transition">
+                    DPE Logement Existant
+                </a>
+            </div>
+            <div class="w-1/2 flex flex-col items-center justify-center p-4">
+                <a href="#" id="boutonAvant2021" class="w-70 h-15 text-2xl text-center mb-2 mt-2 px-2 py-2 border-4 border-yellow-400 text-gray-700 bg-[#fffade] rounded-xl hover:bg-yellow-400 transition">
+                    Avant Juillet 2021
+                </a>
+                <a href="#" id="boutonApres2021" class="w-70 h-15 text-2xl text-center mb-2 mt-2 px-2 py-2 border-4 border-yellow-400 text-gray-700 bg-[#fffade] rounded-xl hover:bg-yellow-400 transition">
+                    Après Juillet 2021
+                </a>
             </div>
         </div>
     </div>
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-16">
-        <div class="col-start-2">
-            <div class="mx-auto">
-                <div class="mb-5">
-                    <label for="myForm" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Recherche Simple : </label>
-                    <input type="text" id="myInput" 
-                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                    placeholder="Veuillez renseigner une adresse...">
-                </div>
-                <div class="flex space-x-4">
-                <button 
-                    type="button"
-                    class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center h-10 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-                    id="boutonMyForm">Envoyer
-                </button>
-                </div>
-            </div>
-        </div>
     </div>
+    <p class="font-bold text-xl text-center mt-6 mb-1"> Recherche via une adresse : </p>
+    <div class="flex flex-col items-center justify-center mt-2">
+        <!-- Barre de recherche -->
+        <input 
+            id="myInput"
+            type="text" 
+            placeholder="Veuillez renseigner une adresse..." 
+            class="w-140 p-3 bg-[#fffade] border-3 border-yellow-400 rounded-lg text-lg focus:outline-none focus:ring-2 focus:ring-yellow-400"
+        >
+    
+        <!-- Conteneur des boutons -->
+        <div class="flex w-140 mt-4 gap-4">
+            <button 
+                class="w-1/2 p-3 mr-4 shadow-md text-lg text-center border-3 border-yellow-400 text-gray-700 bg-[#fffade] rounded-xl hover:bg-yellow-400 transition"
+                id="boutonMyForm">
+                Envoyer
+            </button>
+            <button id="download-csv" type="submit" class="w-1/2 p-3 bg-[#fffade] text-lg text-[#a5b68d] shadow-md hover:text-white border-3 border-[#a5b68d] hover:bg-[#a5b68d] focus:ring-4 focus:outline-none focus:ring-[#a5b68d] rounded-xl text-center inline-flex items-center">
+                <svg class="w-3.5 h-3.5 me-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 21">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 1v11m0 0 4-4m-4 4L4 8m11 4v3a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2v-3"/>
+                </svg>
+                Télécharger le CSV
+            </button>
+        </div>
 
 
     <div class="max-w-sm mx-auto">
-        <h1 class="block mb-2 text-xl font-medium text-gray-900 dark:text-white"> Liste des Adresses Récupérées :
+        <h1 class="block mb-2 mt-4 font-bold text-2xl text-center underline text-gray-900 dark:text-white"> Liste des Adresses Récupérées :
         </h1>
     </div>
     <div class="sm:grid lg:grid-cols-1 sm:grid-cols-2 gap-6" id="cardContainer">
