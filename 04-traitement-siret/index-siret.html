@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Récupération information d'entreprise</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
+    <!-- <meta name="msapplication-TileImage" content="https://www.batirocbpl.fr/wp-content/uploads/2023/03/cropped-vignette-onglet-270x270.png"> -->
+</head>
+
+<body class="bg-[#ccd5ae]">
+    <!-- Barre horizontale -->
+    <div class="w-full h-20 bg-[#fffade] flex items-center px-4">
+        <a href="../index.html">
+            <!-- Icône en haut à gauche -->
+            <img src="../static/Home-Logo.png" alt="Logo" class="h-14 w-14">
+        </a>
+    </div>
+    <p class="font-bold text-xl text-center mt-6 mb-1"> Recherche via un SIRET : </p>
+    <div class="flex flex-row items-center justify-center mt-2">
+        <!-- Barre de recherche -->
+        <input id="myInput" type="text" placeholder="Veuillez renseigner un SIRET..."
+            class="w-140 h-18 p-3 mr-2 bg-[#fffade] border-3 border-yellow-400 rounded-lg text-xl focus:outline-none focus:ring-2 focus:ring-yellow-400">
+
+        <!-- Conteneur des boutons -->
+        <button
+            class="p-3 shadow-md text-lg text-center border-3 border-yellow-400 text-gray-700 bg-[#fffade] rounded-xl hover:bg-yellow-400 transition"
+            id="lancer-recherche">
+            <img src="../static/ico-loupe.png" alt="" class="w-8 h-10 object-cover">
+        </button>
+    </div>
+
+
+    <!-- Conteneur du dépot CSV -->
+    <div class="flex flex-col items-center justify-center mt-2">
+        <p class="font-bold text-xl text-center mt-3 mb-2"> Recherche via Dépôt de CSV</p>
+        <div class="flex items-center justify-center w-140" id="drop-area">
+            <label for="csvFile"
+                class="flex flex-col items-center justify-center w-full h-64 border-2 border-[#fffade] border-dashed rounded-lg cursor-pointer bg-[#a5b68d] hover:bg-[#fffade]">
+                <div class="flex flex-col items-center justify-center pt-5 pb-6">
+                    <svg class="w-8 h-8 mb-4 text-black-500 dark:text-black-400" aria-hidden="true"
+                        xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 16">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2" />
+                    </svg>
+                    <p class="mb-2 text-sm text-black-500 dark:text-black-400"><span class="font-semibold">Cliquer
+                            ici pour déposer</span> ou veuillez glisser-déposer</p>
+                    <p class="text-xs text-black-500 dark:text-black-400">Seulement CSV</p>
+                </div>
+                <input type="file" id="csvFile" name="csvFile" accept=".csv" required />
+            </label>
+        </div>
+        <!-- Conteneur des boutons -->
+        <div class="flex mt-4 gap-4">
+            <a href="#" class="">
+                <button type="submit" id="lancer-traitement" class="">Lancer le traitement</button>
+            </a>
+            <a href="#" class="">
+                <button id="download-csv" type="submit" class="">
+                    <svg class="w-3.5 h-3.5 me-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                        viewBox="0 0 18 21">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M8 1v11m0 0 4-4m-4 4L4 8m11 4v3a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2v-3" />
+                    </svg>
+                    Télécharger le CSV
+                </button>
+            </a>
+        </div>
+    </div>
+    </div>
+    <p class="font-bold text-xl text-center mt-6 mb-1"> Résultat de la recherche : </p>
+    <div id="conteneur-output" class="grid grid-cols-3 gap-4 mb-4 ml-4 mr-4 justify-items-center">
+    </div>
+        <script src="script.js"></script>
+        <!-- Met à jour à chaque actualisation du site -->
+</body>
+
+</html>
