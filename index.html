@@ -1,106 +1,132 @@
 <!DOCTYPE html>
 <html lang="fr">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <script src="https://cdn.tailwindcss.com"></script>
-    <title>GitHub Page traitement</title>
-  </head>
-  <body class="bg-[#ccd5ae]">
-    <div class="grid grid-cols-5 h-screen">
-      <!-- Barre de navigation (1/4 de l'écran) -->
-      <div class="bg-[#fffade] h-full p-6 max-w-lg overflow-y-auto left-0 top-0 col-span-1 lg:col-span-1">  <!-- container bg-[#fffade] h-full p-6 max-w-lg -->
-          <h1 class="text-2xl text-black-800 text-center font-bold underline">Liste des traitements BATIROC BPL</h1>
-          <ul class="mt-6">
-            <li class="">
-              <div class="mt-8 flex justify-center">
-                <a href="01-traitement-dpe/index-dpe.html">
-                <div class="bg-[#a5b68d] rounded-2xl overflow-hidden shadow-md flex items-center p-2 w-[464px] h-35">
-                    <img src="../static/DPE.png" alt="" class="w-16 h-16 mr-2 object-cover hidden sm:block">
-                    <div class="m-2 flex-1">
-                        <p class="font-bold text-md line-clamp-1"> Récupération des DPE </p>
-                        <p class="block text-black-500 text-md break-words line-clamp-2 h-12"> Permet de récupérer les DPE à l'aide de l'API de l'ADEME</p>
-                        <div class="flex justify-end">
-                          <a href="#" id="doc-dpe" class="text-sm text-center mt-1 px-2 py-1 border-2 border-yellow-400 text-gray-700 bg-[#fffade] rounded-xl hover:bg-yellow-400 transition">
-                            Documentation
-                        </a>
-                        </div>
-                    </div>
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- <link rel="stylesheet" href="style.css"> -->
+  <title>GitHub Page traitement</title>
+</head>
+
+<body class="bg-[#ccd5ae]">
+  <div class="grid grid-cols-5 h-screen">
+    <!-- Barre de navigation (1/4 de l'écran) -->
+    <div class="bg-[#fffade] h-full p-6 max-w-lg overflow-y-auto left-0 top-0 col-span-1 lg:col-span-1">
+      <!-- container bg-[#fffade] h-full p-6 max-w-lg -->
+      <h1 class="text-2xl text-black-800 text-center font-bold underline">Liste des traitements BATIROC BPL</h1>
+      <ul class="mt-6">
+        <li class="">
+          <div class="mt-8 flex justify-center">
+            <a href="01-traitement-dpe/index-dpe.html">
+              <div class="bg-[#a5b68d] rounded-2xl overflow-hidden shadow-md flex items-center p-2 w-[464px] h-35">
+                <img src="../static/DPE.png" alt="" class="w-16 h-16 mr-2 object-cover hidden sm:block">
+                <div class="m-2 flex-1">
+                  <p class="font-bold text-md line-clamp-1"> Récupération des DPE </p>
+                  <p class="block text-black-500 text-md break-words line-clamp-2 h-12"> Permet de récupérer les DPE à
+                    l'aide de l'API de l'ADEME</p>
+                  <div class="flex justify-end">
+                    <a href="#" id="doc-dpe"
+                      class="text-sm text-center mt-1 px-2 py-1 border-2 border-yellow-400 text-gray-700 bg-[#fffade] rounded-xl hover:bg-yellow-400 transition">
+                      Documentation
+                    </a>
+                  </div>
                 </div>
-              </a>
-            </div>
-            </li>
-            <li class="">
-              <div class="mt-8 flex justify-center">
-                <a href="02-coordonnees-gps/index-gps.html">
-                <div class="bg-[#a5b68d] rounded-2xl overflow-hidden shadow-md flex items-center p-2 w-[464px]h-35 ">
-                    <img src="../static/Localisation.png" alt="" class="w-16 h-16 mr-2 object-cover hidden sm:block" >
-                    <div class="m-2 flex-1">
-                        <p class="font-bold text-md line-clamp-1"> Récupération des Coordonnées GPS </p>
-                        <p class="block text-black-500 text-md break-words line-clamp-2 h-12"> Permet de récupérer des coordonnées GPS à l'aide de l'API de OpenStreetMap</p>
-                        <div class="flex justify-end">
-                        <a href="#" id="doc-gps" class="text-sm text-center mt-1 px-2 py-1 border-2 border-yellow-400 text-gray-700 bg-[#fffade] rounded-xl hover:bg-yellow-400 transition">
-                            Documentation
-                        </a>
-                        </div>
-                    </div>
-                </div>
-               </a>
-            </div>
-            </li>
-            <li class="">
-              <div class="mt-8 flex justify-center">
-                <a href="04-traitement-siret/index-siret.html">
-                    <div class="bg-[#a5b68d] rounded-2xl overflow-hidden shadow-md flex items-center p-2 w-[464px] h-35"> <!-- Fixe la hauteur à 40 -->
-                        <img src="../static/ico-usine.png" alt="" class="w-16 h-16 mr-2 object-cover hidden sm:block">
-                        <div class="m-2 flex-1">
-                            <p class="font-bold text-md break-words line-clamp-1">Récupération des informations SIRET </p>
-                            <p class="block text-black-500 text-md break-words line-clamp-2 h-12"> <!-- Limite à 2 lignes et la hauteur est fixe -->
-                              Permet de récupérer des informations d'entreprise à l'aide de l'API de l'annuaire des entreprises
-                            </p>
-                            <div class="flex justify-end">
-                                <a href="#" id="doc-gps" class="text-sm text-center mt-1 px-2 py-1 border-2 border-yellow-400 text-gray-700 bg-[#fffade] rounded-xl hover:bg-yellow-400 transition">
-                                    Documentation
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </a>
-            </div>
-            </li>
-            <li class="">
-              <div class="mt-8 flex justify-center">
-                <a href="03-test-front-end/index-front-end.html">
-                <div class="bg-[#a5b68d] rounded-2xl overflow-hidden shadow-md flex items-center p-2 w-[464px] h-35 ">
-                    <img src="../static/Test.png" alt="" class="w-16 h-16 mr-2 object-cover hidden sm:block" >
-                    <div class="m-2 flex-1">
-                        <p class="font-bold text-md line-clamp-1"> Front de Test </p>
-                        <p class="block text-black-500 text-md break-words line-clamp-2 h-12"> Permet de faire des tests Pour le front end de l'application
-                        </p>
-                        <div class="flex justify-end">
-                          <a href="#" id="doc-test" class="text-sm text-center mt-1 px-2 py-1 border-2 border-yellow-400 text-gray-700 bg-[#fffade] rounded-xl hover:bg-yellow-400 transition">
-                            Documentation
-                        </a>
-                        </div>
-                    </div>
-                </div>
-              </a>
-            </div>
-            </li>
-          </ul>
+              </div>
+            </a>
           </div>
-  
-      <!-- Contenu principal (3/4 de l'écran) -->
-      <div class="col-span-4 p-6">
-        <h1 class="text-5xl font-bold text-gray-800" id="titre">Page d'acceuil</h1>
-        
+        </li>
+        <li class="">
+          <div class="mt-8 flex justify-center">
+            <a href="02-coordonnees-gps/index-gps.html">
+              <div class="bg-[#a5b68d] rounded-2xl overflow-hidden shadow-md flex items-center p-2 w-[464px]h-35 ">
+                <img src="../static/Localisation.png" alt="" class="w-16 h-16 mr-2 object-cover hidden sm:block">
+                <div class="m-2 flex-1">
+                  <p class="font-bold text-md line-clamp-1"> Récupération des Coordonnées GPS </p>
+                  <p class="block text-black-500 text-md break-words line-clamp-2 h-12"> Permet de récupérer des
+                    coordonnées GPS à l'aide de l'API de OpenStreetMap</p>
+                  <div class="flex justify-end">
+                    <a href="#" id="doc-gps"
+                      class="text-sm text-center mt-1 px-2 py-1 border-2 border-yellow-400 text-gray-700 bg-[#fffade] rounded-xl hover:bg-yellow-400 transition">
+                      Documentation
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </a>
+          </div>
+        </li>
+        <li class="">
+          <div class="mt-8 flex justify-center">
+            <a href="04-traitement-siret/index-siret.html">
+              <div class="bg-[#a5b68d] rounded-2xl overflow-hidden shadow-md flex items-center p-2 w-[464px] h-35">
+                <!-- Fixe la hauteur à 40 -->
+                <img src="../static/ico-usine.png" alt="" class="w-16 h-16 mr-2 object-cover hidden sm:block">
+                <div class="m-2 flex-1">
+                  <p class="font-bold text-md break-words line-clamp-1">Récupération des informations SIRET </p>
+                  <p class="block text-black-500 text-md break-words line-clamp-2 h-12">
+                    <!-- Limite à 2 lignes et la hauteur est fixe -->
+                    Permet de récupérer des informations d'entreprise à l'aide de l'API de l'annuaire des entreprises
+                  </p>
+                  <div class="flex justify-end">
+                    <a href="#" id="doc-siret"
+                      class="text-sm text-center mt-1 px-2 py-1 border-2 border-yellow-400 text-gray-700 bg-[#fffade] rounded-xl hover:bg-yellow-400 transition">
+                      Documentation
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </a>
+          </div>
+        </li>
+        <li class="">
+          <div class="mt-8 flex justify-center">
+            <a href="03-test-front-end/index-barre-dl.html">
+              <div class="bg-[#a5b68d] rounded-2xl overflow-hidden shadow-md flex items-center p-2 w-[464px] h-35 ">
+                <img src="../static/Test.png" alt="" class="w-16 h-16 mr-2 object-cover hidden sm:block">
+                <div class="m-2 flex-1">
+                  <p class="font-bold text-md line-clamp-1"> Front de Test </p>
+                  <p class="block text-black-500 text-md break-words line-clamp-2 h-12"> Permet de faire des tests Pour
+                    le front end de l'application
+                  </p>
+                  <div class="flex justify-end">
+                    <a href="#" id="doc-test"
+                      class="text-sm text-center mt-1 px-2 py-1 border-2 border-yellow-400 text-gray-700 bg-[#fffade] rounded-xl hover:bg-yellow-400 transition">
+                      Documentation
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </a>
+          </div>
+        </li>
+      </ul>
+    </div>
+
+    <!-- Contenu principal (3/4 de l'écran) -->
+    <div class="col-span-4 p-6" id="div-texte-docu">
+      <h1 class="text-5xl font-bold text-gray-800" id="titre">Page d'acceuil</h1>
+      <div id="paragraphe-txt">
         <!-- Premier paragraphe (à gauche) -->
-        <p class="mt-4 text-gray-600" id="p1">
-            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dolorem consequuntur animi laudantium eveniet veniam assumenda, ex illum. Deserunt, perspiciatis repellendus, corrupti at dolorum excepturi exercitationem nisi non, enim beatae doloremque.
+        <p class="mt-4 text-gray-600" >
+          Bienvenue sur le site web regroupant un ensemble de traitement de BATIROC BPL.
         </p>
-    
-        <!-- Deuxième paragraphe (aligné à droite) -->
+        <p class="mt-4 text-gray-600" >
+          Ce site web permet de récupérer des données externes à Batiroc, notamment via des API, mais également à
+          réaliser des traitements via du dépôt de documents par exemple.
+        </p>
+        <p class="mt-4 text-gray-600" >
+          Vous pourrez trouver l’ensemble des traitements à gauche. Si vous souhaiter consulter la documentation, vous
+          pouvez cliquer sur le bouton « documentation », associé à chaque traitement.
+        </p>
+        <p class="mt-4 text-gray-600">
+          <span style="display: inline-flex; align-items: center;">
+            Pour revenir à l’accueil vous n’avez qu’a cliquer sur l’icône de maison en haut à gauche :
+            <img src="static/Home-Logo.png" alt="Image" class="w-8 h-8 object-cover ml-4" >
+          </span>
+        </p>
+        <!-- Deuxième paragraphe (aligné à droite)
         <div class="mt-8 text-right">
             <p class="text-gray-600" id="p2">
                 Ce paragraphe est aligné à droite de l'écran. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Rem magni placeat mollitia saepe.
@@ -108,20 +134,22 @@
               </p>
         </div>
     
-        <!-- Image après le paragraphe de droite, centrée avec marges -->
+         Image après le paragraphe de droite, centrée avec marges
         <div class="mt-4 mb-4 text-center" id="image">
             <img src="../static/empty.jpg" alt="Image" class="w-600 h-600 mx-auto object-cover">
         </div>
     
-        <!-- Dernier paragraphe (à gauche) -->
+        Dernier paragraphe (à gauche)
         <div class="mt-4" id=p3">
             <p class="text-gray-600">
                 Voici un autre paragraphe qui revient à gauche après l'image. Lorem ipsum dolor sit amet consectetur adipisicing elit. Facere, distinctio!
                 Lorem ipsum dolor sit amet consectetur adipisicing elit. Eius mollitia nostrum id, iure labore non unde quibusdam praesentium. Ea sapiente doloremque quisquam ab inventore, nesciunt incidunt veniam quam corrupti fugiat!
               </p>
         </div>
+    </div> -->
+      </div>
     </div>
-  </div>
-  <script src="script.js"></script>
-  </body>
+    <script src="script.js"></script>
+</body>
+
 </html>
