@@ -18,42 +18,51 @@
         </a>
     </div>
     <div class="flex items-center justify-center">
-    <div class="mx-auto">
-        <p class="font-bold text-3xl text-center mt-3 mb-2"> Traitement de récupération des Coordonnées GPS</p>
-        <div class="flex items-center justify-center w-full " id="drop-area">
-            <label for="csvFile"
-                class="flex flex-col items-center justify-center w-full h-64 border-2 border-[#fffade] border-dashed rounded-lg cursor-pointer bg-[#a5b68d] hover:bg-[#fffade]">
-                <div class="flex flex-col items-center justify-center pt-5 pb-6">
-                    <svg class="w-8 h-8 mb-4 text-black-500 dark:text-black-400" aria-hidden="true"
-                        xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 16">
-                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2" />
-                    </svg>
-                    <p class="mb-2 text-sm text-black-500 dark:text-black-400"><span class="font-semibold">Cliquer
-                            ici pour déposer</span> ou veuillez glisser-déposer</p>
-                    <p class="text-xs text-black-500 dark:text-black-400">Seulement CSV</p>
-                </div>
-                <input type="file" id="csvFile" name="csvFile" accept=".csv" required />
-            </label>
-        </div>
-        <div class="flex w-140 mt-4 gap-35">
-        <a href="#" class="">
-            <button type="submit" id="lancer-traitement" class="">Lancer le traitement</button>
-        </a>
-        <a href="#" class="">
-            <button id="download-csv" type="submit" class="">
-                <svg class="w-3.5 h-3.5 me-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
-                    viewBox="0 0 18 21">
-                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        d="M8 1v11m0 0 4-4m-4 4L4 8m11 4v3a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2v-3" />
-                </svg>
-                Télécharger le CSV
-            </button>
+        <div class="mx-auto">
+            <p class="font-bold text-3xl text-center mt-3 mb-2"> Traitement de récupération des Coordonnées GPS</p>
+            <div class="flex items-center justify-center w-full " id="drop-area">
+                <label for="csvFile"
+                    class="flex flex-col items-center justify-center w-full h-64 border-2 border-[#fffade] border-dashed rounded-lg cursor-pointer bg-[#a5b68d] hover:bg-[#fffade]">
+                    <div class="flex flex-col items-center justify-center pt-5 pb-6">
+                        <svg class="w-8 h-8 mb-4 text-black-500 dark:text-black-400" aria-hidden="true"
+                            xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 16">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2" />
+                        </svg>
+                        <p class="mb-2 text-sm text-black-500 dark:text-black-400"><span class="font-semibold">Cliquer
+                                ici pour déposer</span> ou veuillez glisser-déposer</p>
+                        <p class="text-xs text-black-500 dark:text-black-400">Seulement CSV</p>
+                    </div>
+                    <input type="file" id="csvFile" name="csvFile" accept=".csv" required />
+                </label>
+            </div>
+            <div class="flex w-140 mt-4 gap-35">
+                <a href="#" class="">
+                    <button type="submit" id="lancer-traitement" class="">Lancer le traitement</button>
+                </a>
+                <a href="#" class="">
+                    <button id="download-csv" type="submit" class="">
+                        <svg class="w-3.5 h-3.5 me-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                            viewBox="0 0 18 21">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M8 1v11m0 0 4-4m-4 4L4 8m11 4v3a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2v-3" />
+                        </svg>
+                        Télécharger le CSV
+                    </button>
 
-        </a>
+                </a>
+            </div>
+            <div id="div-traitement">
+                <div id="file-info"></div>
+                <p class="font-bold text-xl mt-3 mb-2"> Progression du traitement : </p>
+                <div class="w-120 bg-[#fffade] rounded-full flex items-center border-[#fffade] border-4" id="barre">
+                    <div id="progress-bar"
+                        class="bg-[#a5b68d] text-xs font-medium text-gray-600 text-center p-0.5 leading-none rounded-full w-[0%]">
+                        0 %</div>
+                </div>
+            </div>
+        </div>
     </div>
-    </div>
-</div>
     <div id="file-info"></div>
     <pre id="csv-content"></pre>
 

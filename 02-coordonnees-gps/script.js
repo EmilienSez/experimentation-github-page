@@ -2,11 +2,16 @@
 
 let boutonLancerTraitement = document.getElementById('lancer-traitement');
 let boutonTelecharger = document.getElementById('download-csv');
-var resultGetInfoVille = []
-var csvData = []
+let zoneLancementTraitement = document.getElementById('div-traitement');
+let barre = document.getElementById("barre");
+let barDeProgression = document.getElementById("progress-bar");
+
+var resultGetInfoVille = [];
+var csvData = [];
 const url = "https://nominatim.openstreetmap.org/search.php?";
-const listeTypeVille = ["town", "city", "village"]
-const delayTime = 1000;
+const listeTypeVille = ["town", "city", "village", "city_district", "hamlet", "locality", "suburb", "municipality"];
+let intervalId;
+let traitementEnCours = false;
 
 // Menue de paramètrage : 
 let classBoutonActiver = "w-70 p-3 shadow-md text-lg text-center border-3 border-yellow-400 text-gray-700 bg-[#fffade] rounded-xl hover:bg-yellow-400 transition";
@@ -15,6 +20,7 @@ let classBoutonDesactiver = "w-70 p-3 shadow-md bg-[#DBDBDB] hover:text-white te
 let classBoutonActiverTelechargerCSV = "w-70 p-3 bg-[#fffade] text-lg text-[#a5b68d] shadow-md hover:text-white border-3 border-[#a5b68d] hover:bg-[#a5b68d] focus:ring-4 focus:outline-none focus:ring-[#a5b68d] rounded-xl text-center inline-flex items-center"
 boutonTelecharger.className = classBoutonDesactiver;
 boutonLancerTraitement.className = classBoutonDesactiver;
+zoneLancementTraitement.style.display = "none";
 
 document.addEventListener('DOMContentLoaded', function () {
   const dropArea = document.getElementById('drop-area');
@@ -76,7 +82,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
   function displayCSVContent(content) {
     // Afficher le contenu brut du CSV
-    csvContent.textContent = content;
+    // csvContent.textContent = content;
 
     // Optionnel : traiter le contenu CSV
     const rows = content.split('\n');
@@ -85,10 +91,6 @@ document.addEventListener('DOMContentLoaded', function () {
     return csvData
   }
 });
-
-function delay(ms) {
-  return new Promise(resolve => setTimeout(resolve, ms));
-}
 
 
 async function getInfoVille(array) {
@@ -104,22 +106,27 @@ async function getInfoVille(array) {
       alert('Un problème est survenu, veuillez réessayer plus tard');
     } else {
       let donnees = await requete.json();
+      // console.log(donnees);
+      if (donnees.length == 0) {
+        let arrayLine = [array[0], null, null, null, null];
+        return arrayLine;
+      } else {
+        for (let index = 0; index < donnees.length; index++) {
+          let adressetype = donnees[index]["addresstype"];
 
-      for (let index = 0; index < donnees.length; index++) {
-        let adressetype = donnees[index]["addresstype"];
+          if (listeTypeVille.includes(adressetype)) {
+            let ligneConserver = index;
+            let typeAdresse = donnees[ligneConserver]["addresstype"];
+            let nomRetour = donnees[ligneConserver]["display_name"];
+            let latitude = donnees[ligneConserver]["lat"];
+            let longitude = donnees[ligneConserver]["lon"];
 
-        if (listeTypeVille.includes(adressetype)) {
-          let ligneConserver = index;
-          let typeAdresse = donnees[ligneConserver]["addresstype"];
-          let nomRetour = donnees[ligneConserver]["display_name"];
-          let latitude = donnees[ligneConserver]["lat"];
-          let longitude = donnees[ligneConserver]["lon"];
-
-          let arrayLine = [array[0], typeAdresse, nomRetour, latitude, longitude];
-          return arrayLine; // Ajouter le résultat au tableau
-          break; // Sortir de la boucle dès qu'une ville valide est trouvée
-        } else {
-          console.log("Pas une ville");
+            let arrayLine = [array[0], typeAdresse, nomRetour, latitude, longitude];
+            return arrayLine; // Ajouter le résultat au tableau
+            break; // Sortir de la boucle dès qu'une ville valide est trouvée
+          } else {
+            console.log("Pas une ville");
+          }
         }
       }
     }
@@ -188,8 +195,7 @@ async function lancementAnalyseArray(arrayCSV) {
 
 // Avant de passer à la gestion de l'asynchrone : 
 boutonLancerTraitement.addEventListener('click', (e) => {
-  boutonTelecharger.className = classBoutonDesactiver;
-  console.log(csvData);
+  // console.log(csvData);
   callBatchAPI(csvData);
 });
 
@@ -197,20 +203,56 @@ boutonTelecharger.addEventListener('click', (e) => {
   telechargerCSV(resultGetInfoVille); // Appel de la fonction principal
 });
 
+let index;
 
 async function callBatchAPI(data) {
-  for (let index = 0; index < data[0].length; index++) {
+  zoneLancementTraitement.style.display = "block";
+  lancerTraitement(data.length);
+  for (index = 0; index < data.length; index++) {
     const adresse = data[index];
+    console.log(adresse)
     arrayoutputCall = await getInfoVille(adresse);
     resultGetInfoVille.push(arrayoutputCall);
     await new Promise(resolve => setTimeout(resolve, 100));
   }
+  console.log(resultGetInfoVille);
   boutonTelecharger.className = classBoutonActiverTelechargerCSV;
 };
 
-function telechargerCSV(data) {
+
+function lancerTraitement(nbRepetition) {
+  if (!traitementEnCours) {
+    intervalId = setInterval(() => {
+      // Code du traitement à exécuter toutes les 1 secondes
+      val = Math.round((index/nbRepetition)*100)
+      // console.log(val)
+      changementProgresseBar(val);
+      if (index == nbRepetition) {
+        arreterTraitement();
+      }
+    }, 1000);
+    traitementEnCours = true;
+  }
+};
+
+
+function arreterTraitement() {
+  if (traitementEnCours) {
+    clearInterval(intervalId);
+    traitementEnCours = false;
+  }
+};
+
+
+function changementProgresseBar(progressionPourcentage) {
+  barDeProgression.className = `bg-[#a5b68d] text-xs font-medium text-gray-600 text-center p-0.5 leading-none rounded-full w-[${progressionPourcentage}%]`;
+  barDeProgression.textContent = `${progressionPourcentage} %`;
+}
+
+
+function telechargerCSV(resultGetInfoVille) {
   // Convertir les données en format CSV
-  const csvContent = data.map(e => e.join(",")).join("\n");
+  const csvContent = resultGetInfoVille.map(e => e.join(",")).join("\n");
 
   // Créer un Blob à partir du contenu CSV
   const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
