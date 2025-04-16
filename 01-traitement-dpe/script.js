@@ -15,6 +15,7 @@ let input = document.getElementById('myInput');
 // Menue de paramètrage : 
 let classBoutonActiver = "w-60 h-13 text-lg text-center mb-2 mt-2 px-2 py-2 border-4 border-yellow-400 text-gray-700 bg-yellow-400 rounded-xl hover:bg-yellow-400 transition";
 let classBoutonDesactiver = "w-60 h-13 text-lg text-center mb-2 mt-2 px-2 py-2 border-4 border-yellow-400 text-gray-700 bg-[#fffade] rounded-xl hover:bg-yellow-400 transition";
+let classLignePSimple = "block text-black-500 text-lg break-words line-clamp-1"
 let boutonDPETertiaire = document.getElementById('boutonDPETertiaire');
 let boutonLogementNeuf = document.getElementById('boutonLogementNeuf');
 let boutonLogementExistant = document.getElementById('boutonLogementExistant');
@@ -230,73 +231,155 @@ async function getInfoDPE(numero_id, geo_id) {
       alert('Un problème est survenu, veuillez réessayer plus tard');
   } else {
       let donnees = await requete.json();
+      // console.log(donnees);
       // globalData.push(donnees);
-      sauvegarderDonnees(donnees)
+      // sauvegarderDonnees(donnees)
       // console.log(`dpe stockées :  ${donnees.total}`)
       // console.log(Object.keys(donnees.results[0]))
       for (let index = 0; index < donnees.total; index++) {
         // Récupération de la carte pour ajout : 
         let carteActuelle = document.getElementById(`carte_numero_${numero_id}`);
-        // Création des informations des DPE :
-        const cardDivDPE = document.createElement('div'); 
-        const cardADPE = document.createElement('a'); 
-        const cardH7 = document.createElement('h7');
-        const cardPEtiquetteDPE = document.createElement('p');
-        const cardPEtiquetteGES = document.createElement('p');
-        const cardPAdresseBrut = document.createElement('p');
-
-        // Changement des classes pour Front : 
-        cardDivDPE.className = "w-full max-w-6xl px-7"
-        cardADPE.className = "block p-2 border border-black-200 rounded-lg shadow-sm hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700"
-        cardADPE.id=`carte_numero_dpe_${index}`
-        cardH7.className = "mb-2 text-1xl font-bold tracking-tight text-gray-800 dark:text-white texteQuiDépassePas";
-        cardPEtiquetteDPE.className = "font-normal text-gray-700 dark:text-gray-400 texteQuiDépassePas";
-        cardPEtiquetteGES.className = "font-normal text-gray-700 dark:text-gray-400 texteQuiDépassePas";
-        cardPAdresseBrut.className = "font-normal text-gray-700 dark:text-gray-400 texteQuiDépassePas";
-
-        // Changement du style : 
-        const CouleurCarte = getColor(Number(donnees.results[index]["Score_BAN"]));
-        cardADPE.style.backgroundColor = CouleurCarte;
-
-        // Changement du texte : 
-        cardH7.textContent = `DPE n°${index+1} : ${donnees.results[index]["N°DPE"]} | Score BANO DPE : ${donnees.results[index]["Score_BAN"]}`;
-        cardPEtiquetteDPE.textContent = `Etiquette DPE : ${donnees.results[index]["Etiquette_DPE"]} | Consommation énergétique : ${donnees.results[index]["Conso_kWhep/m²/an"]}`;
-        cardPEtiquetteGES.textContent = `Etiquette GES : ${donnees.results[index]["Etiquette_GES"]} | Emission GES : ${donnees.results[index]["Emission_GES_kgCO2/m²/an"]}`;
-        cardPAdresseBrut.textContent = `Adresse Brut : ${donnees.results[index]["Adresse_brute"]}, ${donnees.results[index]["Nom__commune_(Brut)"]} ${donnees.results[index]["Code_postal_(brut)"]}`;
-
-        // Ajout à la carte : 
-        cardADPE.appendChild(cardH7);
-        cardADPE.appendChild(cardPEtiquetteDPE);
-        cardADPE.appendChild(cardPEtiquetteGES);
-        cardADPE.appendChild(cardPAdresseBrut);
-
-        cardDivDPE.appendChild(cardADPE);
-        carteActuelle.appendChild(cardADPE);
-        // console.log(globalData.length)
-        // console.log(globalData)
+        // Lancement des DPE
+        carteDPE = creationCarteDPE2(donnees, index);
+        carteActuelle.appendChild(carteDPE);
       }
   }
 };
 
-// Fonction pour bien enregistrer les données dans le bon ordre
-function sauvegarderDonnees(data) {
+// Fonction pour ajouter une carte DPE
+function creationCarteDPE1(donnees, index) { 
+  // Création des informations des DPE :
+  const cardDivDPE = document.createElement('div'); 
+  const cardADPE = document.createElement('a'); 
+  const cardH7 = document.createElement('h7');
+  const cardPEtiquetteDPE = document.createElement('p');
+  const cardPEtiquetteGES = document.createElement('p');
+  const cardPAdresseBrut = document.createElement('p');
 
-  const promesse = new Promise((resolve, reject) =>{
-    setTimeout(() => resolve(globalData.push(data)), 3000);
+  // Changement des classes pour Front : 
+  cardDivDPE.className = "w-full max-w-6xl px-7"
+  cardADPE.className = "block p-2 border border-black-200 rounded-lg shadow-sm hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700"
+  cardADPE.id=`carte_numero_dpe_${index}`
+  cardH7.className = "mb-2 text-1xl font-bold tracking-tight text-gray-800 dark:text-white texteQuiDépassePas";
+  cardPEtiquetteDPE.className = "font-normal text-gray-700 dark:text-gray-400 texteQuiDépassePas";
+  cardPEtiquetteGES.className = "font-normal text-gray-700 dark:text-gray-400 texteQuiDépassePas";
+  cardPAdresseBrut.className = "font-normal text-gray-700 dark:text-gray-400 texteQuiDépassePas";
 
-  })
-  // console.log("Données Poussée")
-}
+  // Changement du style : 
+  const CouleurCarte = getColor(Number(donnees.results[index]["Score_BAN"]));
+  cardADPE.style.backgroundColor = CouleurCarte;
 
-// Fonction pour bien enregistrer les données dans le bon ordre
-// function ActiverBouton() {
+  // Changement du texte : 
+  cardH7.textContent = `DPE n°${index+1} : ${donnees.results[index]["N°DPE"]} | Score BANO DPE : ${donnees.results[index]["Score_BAN"]}`;
+  cardPEtiquetteDPE.textContent = `Etiquette DPE : ${donnees.results[index]["Etiquette_DPE"]} | Consommation énergétique : ${donnees.results[index]["Conso_kWhep/m²/an"]}`;
+  cardPEtiquetteGES.textContent = `Etiquette GES : ${donnees.results[index]["Etiquette_GES"]} | Emission GES : ${donnees.results[index]["Emission_GES_kgCO2/m²/an"]}`;
+  cardPAdresseBrut.textContent = `Adresse Brut : ${donnees.results[index]["Adresse_brute"]}, ${donnees.results[index]["Nom__commune_(Brut)"]} ${donnees.results[index]["Code_postal_(brut)"]}`;
 
-//   const promesse = new Promise((resolve, reject) =>{
-//     setTimeout(() => resolve(realBoutonTelechargerCsv.disabled = false), 3000);
-//     setTimeout(() => realBoutonTelechargerCsv.className = "text-green-700 hover:text-white border border-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center me-2 mb-2 h-10 dark:border-green-500 dark:text-green-500 dark:hover:text-white dark:hover:bg-green-600 dark:focus:ring-green-800 w-full", 4000);
-//   })
-//   // console.log("Données Poussée")
-// }
+  // Ajout à la carte : 
+  cardADPE.appendChild(cardH7);
+  cardADPE.appendChild(cardPEtiquetteDPE);
+  cardADPE.appendChild(cardPEtiquetteGES);
+  cardADPE.appendChild(cardPAdresseBrut);
+
+  cardDivDPE.appendChild(cardADPE);
+  return cardDivDPE
+  // console.log(globalData.length)
+  // console.log(globalData)
+};
+
+// Fonction pour ajouter une carte DPE
+function creationCarteDPE2(donnees, index) { 
+
+  // Création des informations des DPE :
+  const cardDivDPEEnglobe = document.createElement('div');
+  const cardDivDPECarte = document.createElement('div');  
+  const cardH1Titre = document.createElement('h1');  
+  const cardDivDPEObjet = document.createElement('div');
+  const cardImgDPE = document.createElement('img'); 
+  const cardDivDPEDoneesSaisie = document.createElement('div');
+  const cardDivDPEDoneesVerif = document.createElement('div');
+  const cardPTitreDoneesSaisie = document.createElement('p');
+  const cardPEtiquetteDPE = document.createElement('p');
+  const cardPEtiquetteGES = document.createElement('p');
+  const cardPDateEtablissement = document.createElement('p');
+  const cardPMethodeDPE = document.createElement('p');
+  const cardPSecteurActivite = document.createElement('p');
+  const cardPAnneeConstruction = document.createElement('p');
+  const cardPSurfaceShon = document.createElement('p');
+  const cardPSurfaceUtile = document.createElement('p');
+
+  // Changement des classes pour Front : 
+  cardDivDPEEnglobe.className = "mt-8 flex justify-center"
+  cardDivDPECarte.className = "bg-[#a5b68d] rounded-2xl overflow-hidden shadow-md flex flex-col p-2 w-auto h-auto border-4 border-[#fffade]"
+  cardDivDPECarte.id=`carte_numero_dpe_${index}`
+  cardH1Titre.className = "text-center font-bold text-2xl mb-2"
+  cardDivDPEObjet.className = "flex items-center"
+  cardImgDPE.className = "w-16 h-16 mr-2 object-cover hidden sm:block"
+  cardDivDPEDoneesSaisie.className ="bg-[#fffade] rounded-2xl overflow-hidden flex-1 items-center p-2 border-2 border-yellow-400"
+  cardDivDPEDoneesVerif.className = "m-2 flex-1"
+  cardPTitreDoneesSaisie.className = "text-center font-bold text-2xl mb-2"
+  cardPEtiquetteDPE.className = classLignePSimple
+  cardPEtiquetteGES.className = classLignePSimple
+  cardPDateEtablissement.className = classLignePSimple
+  cardPMethodeDPE.className = classLignePSimple
+  cardPSecteurActivite.className = classLignePSimple
+  cardPAnneeConstruction.className = classLignePSimple
+  cardPSurfaceShon.className = classLignePSimple
+  cardPSurfaceUtile.className = classLignePSimple
+  // Changement du style : 
+  const CouleurCarte = getColor(Number(donnees.results[index]["Score_BAN"]));
+  cardDivDPECarte.style.backgroundColor = CouleurCarte;
+
+  // Source de l'image :
+  cardImgDPE.src = "../static/DPE.png"
+
+  // Changement du texte :
+  cardH1Titre.textContent = `DPE n°${index+1} : ${donnees.results[index]["Score_BAN"]} - ${donnees.results[index]["Adresse_brute"]}, ${donnees.results[index]["Nom__commune_(Brut)"]} ${donnees.results[index]["Code_postal_(brut)"]}`;
+  cardPTitreDoneesSaisie.textContent = `N° ADEME : ${donnees.results[index]["N°DPE"]}`;
+  cardPEtiquetteDPE.textContent = `Etiquette DPE : ${donnees.results[index]["Etiquette_DPE"]} - ${donnees.results[index]["Conso_kWhep/m²/an"]} kWhep/m²/an`;
+  cardPEtiquetteGES.textContent = `Etiquette GES : ${donnees.results[index]["Etiquette_GES"]} - ${donnees.results[index]["Emission_GES_kgCO2/m²/an"]} kgCO2/m²/an`;
+  cardPDateEtablissement.textContent = `Date DPE : ${donnees.results[index]["Date_établissement_DPE"]}`;
+  cardPMethodeDPE.textContent = `Méthode du DPE : ${donnees.results[index]["Méthode_du_DPE"]}`;
+  let anneeConstruction;
+  if (!donnees.results[index]["Année_construction"]) {
+    anneeConstruction = donnees.results[index]["Période_construction"];
+  } else {
+    anneeConstruction = donnees.results[index]["Année_construction"];
+  };
+
+  cardPSecteurActivite.textContent = `Secteur d'activité : ${donnees.results[index]["Secteur_activité"]}`;
+  cardPAnneeConstruction.textContent = `Année de construction : ${anneeConstruction}`;
+  cardPSurfaceShon.textContent = `Surface SHON : ${donnees.results[index]["Surface_(SHON)"]}`;
+  cardPSurfaceUtile.textContent = `Surface Utile : ${donnees.results[index]["Surface_utile"]}`;
+cardDivDPEDoneesVerif.appendChild(cardPMethodeDPE);
+  // Ajout à la carte (div de vérif) : 
+  cardDivDPEDoneesVerif.appendChild(cardPSecteurActivite);
+  cardDivDPEDoneesVerif.appendChild(cardPAnneeConstruction);
+  cardDivDPEDoneesVerif.appendChild(cardPSurfaceShon);
+  cardDivDPEDoneesVerif.appendChild(cardPSurfaceUtile);
+
+  // Ajout à la carte (div de saisie) : 
+  cardDivDPEDoneesSaisie.appendChild(cardPTitreDoneesSaisie);
+  cardDivDPEDoneesSaisie.appendChild(cardPEtiquetteDPE);
+  cardDivDPEDoneesSaisie.appendChild(cardPEtiquetteGES);
+  cardDivDPEDoneesSaisie.appendChild(cardPDateEtablissement);
+
+  // Ajout à la carte d'objet : 
+  cardDivDPEObjet.appendChild(cardImgDPE);
+  cardDivDPEObjet.appendChild(cardDivDPEDoneesSaisie);
+  cardDivDPEObjet.appendChild(cardDivDPEDoneesVerif);
+
+  // Ajout à la carte plus globale :
+  cardDivDPECarte.appendChild(cardH1Titre);
+  cardDivDPECarte.appendChild(cardDivDPEObjet);
+
+  // Ajout au conteneur :
+  cardDivDPEEnglobe.appendChild(cardDivDPECarte)
+  return cardDivDPEEnglobe
+  // console.log(globalData.length)
+  // console.log(globalData)
+};
+
 
 // Ecouteur d'événement : 
 button.addEventListener('click', (e) => {
