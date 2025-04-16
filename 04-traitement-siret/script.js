@@ -310,6 +310,11 @@ async function getInfoGeo(adresse) {
 }
 
 async function callBatchAPI(data) {
+  if (resultGetInfoSiret.length == 0) {
+    resultGetInfoSiret.push(["SIRET_ENVOYE", "SIRET_RECU", "EGALITE_SIRET", "RASION SOCIAL", "NOM_COMPLET", "ADRESSE_SIRET", "GEO_ID_ENV", "GEO_ID_RECU"
+      , "EGALITE_GEO_ID", "ADRESSE_CONSERVE", "SCORE_CORRESPONDANCE", "NUMERO_VOIE", "TYPE_VOIE", "NOM_VOIE", "COMPLEMENT_VOIE", "VILLE", "DEPARTEMENT_NUM", "DEPARTEMENT"
+      , "REGION", "DATE_FERMETURE", "NB_RESULTAT", "EST_SIEGE"]);
+  };
   for (let index = 0; index < data[0].length; index++) {
       const siret = data[0][index];
       arrayoutputCall = await getInfoSiret(siret);
@@ -320,6 +325,11 @@ async function callBatchAPI(data) {
 }
 
 async function callBatchAPIInput(data) {
+  if (resultGetInfoSiret.length == 0) {
+  resultGetInfoSiret.push(["SIRET_ENVOYE", "SIRET_RECU", "EGALITE_SIRET", "RASION SOCIAL", "NOM_COMPLET", "ADRESSE_SIRET", "GEO_ID_ENV", "GEO_ID_RECU"
+    , "EGALITE_GEO_ID", "ADRESSE_CONSERVE", "SCORE_CORRESPONDANCE", "NUMERO_VOIE", "TYPE_VOIE", "NOM_VOIE", "COMPLEMENT_VOIE", "VILLE", "DEPARTEMENT_NUM", "DEPARTEMENT"
+    , "REGION", "DATE_FERMETURE", "NB_RESULTAT", "EST_SIEGE"]);
+  };
     for (let index = 0; index < data.length; index++) {
         const siret = data[index];
         arrayoutputCall = await getInfoSiret(siret);
