@@ -326,7 +326,7 @@ async function callBatchAPI(data) {
 
 async function callBatchAPIInput(data) {
   if (resultGetInfoSiret.length == 0) {
-  resultGetInfoSiret.push(["SIRET_ENVOYE", "SIRET_RECU", "EGALITE_SIRET", "RASION SOCIAL", "NOM_COMPLET", "ADRESSE_SIRET", "GEO_ID_ENV", "GEO_ID_RECU"
+  resultGetInfoSiret.push(["SIRET_ENVOYE", "SIRET_RECU", "EGALITE_SIRET", "RAISON SOCIAL", "NOM_COMPLET", "ADRESSE_SIRET", "GEO_ID_ENV", "GEO_ID_RECU"
     , "EGALITE_GEO_ID", "ADRESSE_CONSERVE", "SCORE_CORRESPONDANCE", "NUMERO_VOIE", "TYPE_VOIE", "NOM_VOIE", "COMPLEMENT_VOIE", "VILLE", "DEPARTEMENT_NUM", "DEPARTEMENT"
     , "REGION", "DATE_FERMETURE", "NB_RESULTAT", "EST_SIEGE"]);
   };
@@ -425,8 +425,11 @@ document.addEventListener('DOMContentLoaded', function () {
         // Utilisation de TextDecoder pour décoder le contenu en UTF-8
         const decoder = new TextDecoder();
         const decodedContent = decoder.decode(new Uint8Array(content));
+        // console.log(decodedContent)
         const rows = decodedContent.split('\r\n');
+        // console.log(rows)
         arrayCSV.push(rows)
+        // console.log(arrayCSV)
         boutonLancerTraitement.className = classBoutonActiver;
       };
   
@@ -438,8 +441,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
 boutonLancerTraitement.addEventListener('click', (e) => {
     boutonTelecharger.className = classBoutonDesactiver;
-    arrayCSV[0].pop();
+    // arrayCSV[0].pop();
     callBatchAPI(arrayCSV);
+    //console.log(arrayCSV);
 })
 ;
 
