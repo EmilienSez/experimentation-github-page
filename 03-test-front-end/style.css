@@ -1,1 +1,38 @@
+#content {
+    overflow: hidden; /* Empêche le débordement lors du défilement */
+    transition: max-height 0.5s ease-in-out, opacity 0.5s ease-in-out; /* Ajoute une transition sur la hauteur maximale et l'opacité */
+    max-height: 0; /* Commence avec une hauteur maximale de 0 */
+    opacity: 0; /* Commence complètement transparent */
+}
 
+#content.show {
+    max-height: 2000px; /* Ajustez cette valeur en fonction de la hauteur de votre contenu */
+    opacity: 1; /* Rendre visible */
+}
+
+.contenthidden {
+    display: none; /* Cache le contenu par défaut */
+    transition: max-height 0.5s ease-out;
+}
+
+
+.dropdown {
+    position: relative;
+    margin-bottom: 10px; /* Espacement entre les menus */
+}
+
+.content {
+    overflow: hidden; /* Empêche le débordement lors du défilement */
+    transition: max-height 0.5s ease-in-out, opacity 0.5s ease-in-out; /* Ajoute une transition sur la hauteur maximale et l'opacité */
+    max-height: 0; /* Commence avec une hauteur maximale de 0 */
+    opacity: 0; /* Commence complètement transparent */
+}
+
+.content.show {
+    max-height: 2000px; /* Ajustez cette valeur en fonction de la hauteur de votre contenu */
+    opacity: 1; /* Rendre visible */
+}
+
+.hiddenessaie {
+    display: none; /* Cache le contenu par défaut */
+}

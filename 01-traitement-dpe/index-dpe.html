@@ -24,65 +24,71 @@
         <div class="bg-[#a5b68d] rounded-2xl overflow-hidden shadow-md items-center p-2 w-[650px]">
             <h2 class="text-center text-xl underline font-bold">Choix de l'API</h2>
             <div class="flex gap-4">
-            <div class="w-1/2 flex flex-col items-center justify-center p-4">
-                <a href="#" id="boutonDPETertiaire" class="w-70 h-15 text-2xl text-center mb-2 mt-2 px-2 py-2 border-4 border-yellow-400 text-gray-700 bg-[#fffade] rounded-xl hover:bg-yellow-400 transition">
-                    DPE Tertiaire
-                </a>
-                <a href="#" id="boutonLogementNeuf" class="w-70 h-15 text-2xl text-center mb-2 mt-2 px-2 py-2 border-4 border-yellow-400 text-gray-700 bg-[#fffade] rounded-xl hover:bg-yellow-400 transition">
-                    DPE Logement Neuf
-                </a>
-                <a href="#" id="boutonLogementExistant" class="w-70 h-15 text-2xl text-center mb-2 mt-2 px-2 py-2 border-4 border-yellow-400 text-gray-700 bg-[#fffade] rounded-xl hover:bg-yellow-400 transition">
-                    DPE Logement Existant
-                </a>
-            </div>
-            <div class="w-1/2 flex flex-col items-center justify-center p-4">
-                <a href="#" id="boutonAvant2021" class="w-70 h-15 text-2xl text-center mb-2 mt-2 px-2 py-2 border-4 border-yellow-400 text-gray-700 bg-[#fffade] rounded-xl hover:bg-yellow-400 transition">
-                    Avant Juillet 2021
-                </a>
-                <a href="#" id="boutonApres2021" class="w-70 h-15 text-2xl text-center mb-2 mt-2 px-2 py-2 border-4 border-yellow-400 text-gray-700 bg-[#fffade] rounded-xl hover:bg-yellow-400 transition">
-                    Après Juillet 2021
-                </a>
+                <div class="w-1/2 flex flex-col items-center justify-center p-4">
+                    <a href="#" id="boutonDPETertiaire"
+                        class="w-70 h-15 text-2xl text-center mb-2 mt-2 px-2 py-2 border-4 border-yellow-400 text-gray-700 bg-[#fffade] rounded-xl hover:bg-yellow-400 transition">
+                        DPE Tertiaire
+                    </a>
+                    <a href="#" id="boutonLogementNeuf"
+                        class="w-70 h-15 text-2xl text-center mb-2 mt-2 px-2 py-2 border-4 border-yellow-400 text-gray-700 bg-[#fffade] rounded-xl hover:bg-yellow-400 transition">
+                        DPE Logement Neuf
+                    </a>
+                    <a href="#" id="boutonLogementExistant"
+                        class="w-70 h-15 text-2xl text-center mb-2 mt-2 px-2 py-2 border-4 border-yellow-400 text-gray-700 bg-[#fffade] rounded-xl hover:bg-yellow-400 transition">
+                        DPE Logement Existant
+                    </a>
+                </div>
+                <div class="w-1/2 flex flex-col items-center justify-center p-4">
+                    <a href="#" id="boutonAvant2021"
+                        class="w-70 h-15 text-2xl text-center mb-2 mt-2 px-2 py-2 border-4 border-yellow-400 text-gray-700 bg-[#fffade] rounded-xl hover:bg-yellow-400 transition">
+                        Avant Juillet 2021
+                    </a>
+                    <a href="#" id="boutonApres2021"
+                        class="w-70 h-15 text-2xl text-center mb-2 mt-2 px-2 py-2 border-4 border-yellow-400 text-gray-700 bg-[#fffade] rounded-xl hover:bg-yellow-400 transition">
+                        Après Juillet 2021
+                    </a>
+                </div>
             </div>
         </div>
-    </div>
     </div>
     <p class="font-bold text-xl text-center mt-6 mb-1"> Recherche via une adresse : </p>
     <div class="flex flex-col items-center justify-center mt-2">
         <!-- Barre de recherche -->
-        <input 
-            id="myInput"
-            type="text" 
-            placeholder="Veuillez renseigner une adresse..." 
-            class="w-140 p-3 bg-[#fffade] border-3 border-yellow-400 rounded-lg text-lg focus:outline-none focus:ring-2 focus:ring-yellow-400"
-        >
-    
+        <input id="myInput" type="text" placeholder="Veuillez renseigner une adresse..."
+            class="w-140 p-3 bg-[#fffade] border-3 border-yellow-400 rounded-lg text-lg focus:outline-none focus:ring-2 focus:ring-yellow-400">
+
         <!-- Conteneur des boutons -->
         <div class="flex w-140 mt-4 gap-4">
-            <button 
+            <button
                 class="w-1/2 p-3 mr-4 shadow-md text-lg text-center border-3 border-yellow-400 text-gray-700 bg-[#fffade] rounded-xl hover:bg-yellow-400 transition"
                 id="boutonMyForm">
                 Envoyer
             </button>
-            <button id="download-csv" type="submit" class="w-1/2 p-3 bg-[#fffade] text-lg text-[#a5b68d] shadow-md hover:text-white border-3 border-[#a5b68d] hover:bg-[#a5b68d] focus:ring-4 focus:outline-none focus:ring-[#a5b68d] rounded-xl text-center inline-flex items-center">
-                <svg class="w-3.5 h-3.5 me-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 21">
-                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 1v11m0 0 4-4m-4 4L4 8m11 4v3a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2v-3"/>
+            <button id="download-csv" type="submit"
+                class="w-1/2 p-3 bg-[#fffade] text-lg text-[#a5b68d] shadow-md hover:text-white border-3 border-[#a5b68d] hover:bg-[#a5b68d] focus:ring-4 focus:outline-none focus:ring-[#a5b68d] rounded-xl text-center inline-flex items-center">
+                <svg class="w-3.5 h-3.5 me-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                    viewBox="0 0 18 21">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M8 1v11m0 0 4-4m-4 4L4 8m11 4v3a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2v-3" />
                 </svg>
                 Télécharger le CSV
             </button>
         </div>
-
+    </div>
 
     <div class="max-w-sm mx-auto">
-        <h1 class="block mb-2 mt-4 font-bold text-2xl text-center underline text-gray-900 dark:text-white"> Liste des Adresses Récupérées :
+        <h1 class="block mb-2 mt-4 font-bold text-2xl text-center underline text-gray-900 dark:text-white"> Liste
+            des Adresses Récupérées :
         </h1>
     </div>
-    <div class="sm:grid lg:grid-cols-1 sm:grid-cols-2 gap-6" id="cardContainer">
+    <div id="conteneur-des-cartes">
+    </div>
+    <!-- <div class="sm:grid lg:grid-cols-1 sm:grid-cols-2 gap-6" id="cardContainer">
         <div class="max-w-sm mx-auto" id="centrerLesCartes">
             <div class="mb-4" id="carteAdresse">
-                <!-- {% include 'dpe/adresse.html' %} -->
             </div>
         </div>
-    </div>
+    </div> -->
     <!-- {% include 'dpe/exemple_carte.html' %} -->
 
 

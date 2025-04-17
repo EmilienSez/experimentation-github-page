@@ -8,6 +8,7 @@ const urlDPEExistantv2 = "https://data.ademe.fr/data-fair/api/v1/datasets/dpe-v2
 
 
 let button = document.getElementById('boutonMyForm');
+let ConteneurDesCartes = document.getElementById('conteneur-des-cartes')
 // let buttonDlCsv = document.getElementById('BoutonTelechargerCsv');
 // let realBoutonTelechargerCsv = document.getElementById('realBoutonTelechargerCsv');
 let input = document.getElementById('myInput');
@@ -44,7 +45,7 @@ let context = document.getElementById('context_adr');
 
 // Gestion de la recherche Unique : 
 let globalData = [];
-cardContainer.innerHTML = '';
+// ConteneurDesCartes.innerHTML = '';
 // buttonDlCsv.style.display = 'none';
 // realBoutonTelechargerCsv.disabled = 'true'
 // realBoutonTelechargerCsv.className = "text-white bg-grey-600 hover:text-white border border-gray-700 hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center me-2 mb-2 h-10 dark:border-gray-500 dark:text-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-800 w-full cursor-not-allowed";
@@ -159,53 +160,101 @@ async function getInfoAdresse(adresse) {
     if(!requete.ok) {
         alert('Un problème est survenu, veuillez réessayer plus tard');
     } else {
-        cardContainer.innerHTML = '';
+        ConteneurDesCartes.innerHTML = '';
         let donnees = await requete.json();
         globalData.push(donnees)
         for (let index = 0; index < donnees.features.length; index++) {
 
           // Créer des éléments de la nouvelle Carte : 
+          const CarteAdresse = document.createElement('div');
           const cardDiv1 = document.createElement('div');
           const cardDiv2 = document.createElement('div');
-          const cardA = document.createElement('a');
-          const cardH5 = document.createElement('h5');
-          const cardPScore = document.createElement('p');
-          const cardPCity = document.createElement('p');
-          const cardPContext = document.createElement('p');
-          const br = document.createElement('br');
+          const cardH1    = document.createElement('h1');
+          const cardH3    = document.createElement('h3');
+          const cardDiv3  = document.createElement('div');
+          const cardImg1  = document.createElement('img');
+          const cardDiv4  = document.createElement('div');
+          const cardDiv5  = document.createElement('div');
+          const cardp1    = document.createElement('p');
+          const cardp2    = document.createElement('p');
+          const cardp3    = document.createElement('p');
+          const cardp4    = document.createElement('p');
+          const cardp5    = document.createElement('p');
+          const cardA     = document.createElement('a');
+          const cardImg2  = document.createElement('img');
 
+          const DivAllDPE = document.createElement('div');
+          const UlDPE = document.createElement('ul');
+
+          // Changement des ID :
+          CarteAdresse.id = `carte_numero_${index}`;
+          UlDPE.id = `espace_dpe_${index}`;
+          cardA.id = `button_${index}`
           // Changement des classes :
-          cardDiv1.className = "flex justify-center"
-          cardDiv2.className = "w-full max-w-7xl px-7"
-          cardA.className = "block p-6 border border-black-200 rounded-lg shadow-sm hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700";
-          cardDiv2.id = `carte_numero_${index}`;
-          cardH5.className = "mb-2 text-2xl font-bold tracking-tight text-gray-800 dark:text-white texteQuiDépassePas";
-          cardPScore.className = "font-normal text-gray-700 dark:text-gray-400 texteQuiDépassePas";
-          cardPCity.className = "font-normal text-gray-700 dark:text-gray-400 texteQuiDépassePas";
-          cardPContext.className = "font-normal text-gray-700 dark:text-gray-400 texteQuiDépassePas";
+          CarteAdresse.className = "dropdown"
+          cardDiv1.className = "mt-8 flex justify-center"
+          cardDiv2.className = "bg-[#a5b68d] rounded-2xl overflow-hidden shadow-md flex flex-col p-2 w-[60%] h-auto border-4 border-[#fffade]"
+          cardH1.className  = "text-center font-bold text-2xl "
+          cardH3.className  = "text-center font-bold text-xl mb-2"
+          cardDiv3.className  = "flex items-center"
+          cardImg1.className  = "w-20 h-20 mr-2 object-cover hidden sm:block"
+          cardDiv4.className  = "flex-1"
+          cardDiv5.className  = "m-2 flex-1"
+          cardp1.className  = "block text-black-500 text-lg break-words line-clamp-1"
+          cardp2.className  = "block text-black-500 text-lg break-words line-clamp-1"
+          cardp3.className  = "block text-black-500 text-lg break-words line-clamp-1"
+          cardp4.className  = "block text-black-500 text-lg break-words line-clamp-1"
+          cardp5.className  = "block text-black-500 text-lg break-words line-clamp-1"
+          cardA .className  = "toggleButton"
+          cardImg2.className  = "w-4 h-4 mt-17 mr-2 object-cover hidden sm:block menu"
+          DivAllDPE.className = "content hiddenessaie";
+
+          // Changement des source des Images : 
+          cardImg1.src = "../static/Localisation.png"
+          cardImg2.src = "../static/arrow.png"
           
+          // Ajout du Href :
+          cardA.href = "#"
           // Changement du style : 
           const CouleurCarte = getColor(Number(donnees.features[index].properties.score));
-          cardA.style.backgroundColor = CouleurCarte;
+          cardDiv2.style.backgroundColor = CouleurCarte;
           
           // Changement des informations : 
-          cardH5.textContent = `Adresse : ${donnees.features[index].properties.label}`;
-          cardPScore.textContent = `Score Correspondance : ${Math.round(donnees.features[index].properties.score*100)/100} |    Type d'adresse : ${donnees.features[index].properties.type}`;
-          cardPCity.textContent = `Numéro de Voie : ${donnees.features[index].properties.housenumber} | Voie : ${donnees.features[index].properties.street} | Ville : ${donnees.features[index].properties.city}`;
-          cardPContext.textContent = `Département & Région : ${donnees.features[index].properties.context}`;
-          
+          cardH1.textContent = `Adresse : ${donnees.features[index].properties.label}`;
+          cardH3.textContent = `Score de Correspondance : ${Math.round(donnees.features[index].properties.score*100)/100}`
+          cardp1.textContent = `Type d'adresse : ${donnees.features[index].properties.type}`
+          cardp2.textContent = `Voie : ${donnees.features[index].properties.housenumber}, ${donnees.features[index].properties.street}`
+          cardp3.textContent = `Ville : ${donnees.features[index].properties.city}`
+          cardp4.textContent = `Département :  ${donnees.features[index].properties.context}`
+          cardp5.textContent = `Région : ${donnees.features[index].properties.context}`
+ 
           // Création de la carte : 
-          cardA.appendChild(cardH5);
-          cardA.appendChild(cardPScore);
-          cardA.appendChild(cardPCity);
-          cardA.appendChild(cardPContext);
+          cardDiv5.appendChild(cardp4);
+          cardDiv5.appendChild(cardp5);
 
-          cardDiv2.appendChild(cardA);
-          cardDiv2.appendChild(br);
+          cardDiv4.appendChild(cardp1);
+          cardDiv4.appendChild(cardp2);
+          cardDiv4.appendChild(cardp3);
+
+          cardA.appendChild(cardImg2);
+
+          cardDiv3.appendChild(cardImg1);
+          cardDiv3.appendChild(cardDiv4);
+          cardDiv3.appendChild(cardDiv5);
+          cardDiv3.appendChild(cardA);
+
+          cardDiv2.appendChild(cardH1);
+          cardDiv2.appendChild(cardH3);
+          cardDiv2.appendChild(cardDiv3);
+
           cardDiv1.appendChild(cardDiv2);
 
+          CarteAdresse.appendChild(cardDiv1);
+
+          DivAllDPE.appendChild(UlDPE);
+          CarteAdresse.appendChild(DivAllDPE);
           // Ajouter la Carte au conteneur :
-          cardContainer.appendChild(cardDiv1);
+          ConteneurDesCartes.appendChild(CarteAdresse);
 
           // Lancement du second traitement : 
           getInfoDPE(index, donnees.features[index].properties.id);
@@ -232,17 +281,23 @@ async function getInfoDPE(numero_id, geo_id) {
   } else {
       let donnees = await requete.json();
       // console.log(donnees);
+      let buttonAdresseActuel = document.getElementById(`button_${numero_id}`);
+      // console.log(donnees);
       // globalData.push(donnees);
       // sauvegarderDonnees(donnees)
       // console.log(`dpe stockées :  ${donnees.total}`)
       // console.log(Object.keys(donnees.results[0]))
-      for (let index = 0; index < donnees.total; index++) {
-        // Récupération de la carte pour ajout : 
-        let carteActuelle = document.getElementById(`carte_numero_${numero_id}`);
-        // Lancement des DPE
-        carteDPE = creationCarteDPE2(donnees, index);
-        carteActuelle.appendChild(carteDPE);
-      }
+      if (donnees.total == 0) {
+        buttonAdresseActuel.remove();
+      } else {
+        for (let index = 0; index < donnees.total; index++) {
+          // Récupération de la carte pour ajout : 
+          let carteActuelle = document.getElementById(`espace_dpe_${numero_id}`);
+          // Lancement des DPE
+          carteDPE = creationCarteDPE2(donnees, index);
+          carteActuelle.appendChild(carteDPE);
+        }
+    }
   }
 };
 
@@ -291,6 +346,7 @@ function creationCarteDPE1(donnees, index) {
 function creationCarteDPE2(donnees, index) { 
 
   // Création des informations des DPE :
+  const liCardDPE = document.createElement('li');
   const cardDivDPEEnglobe = document.createElement('div');
   const cardDivDPECarte = document.createElement('div');  
   const cardH1Titre = document.createElement('h1');  
@@ -309,15 +365,15 @@ function creationCarteDPE2(donnees, index) {
   const cardPSurfaceUtile = document.createElement('p');
 
   // Changement des classes pour Front : 
-  cardDivDPEEnglobe.className = "mt-8 flex justify-center"
-  cardDivDPECarte.className = "bg-[#a5b68d] rounded-2xl overflow-hidden shadow-md flex flex-col p-2 w-auto h-auto border-4 border-[#fffade]"
+  cardDivDPEEnglobe.className = "flex justify-center"
+  cardDivDPECarte.className = "bg-[#a5b68d] ml-[5%] rounded-2xl overflow-hidden shadow-md flex flex-col p-2 w-[55%] h-auto border-4 border-[#fffade]"
   cardDivDPECarte.id=`carte_numero_dpe_${index}`
   cardH1Titre.className = "text-center font-bold text-2xl mb-2"
   cardDivDPEObjet.className = "flex items-center"
   cardImgDPE.className = "w-16 h-16 mr-2 object-cover hidden sm:block"
   cardDivDPEDoneesSaisie.className ="bg-[#fffade] rounded-2xl overflow-hidden flex-1 items-center p-2 border-2 border-yellow-400"
   cardDivDPEDoneesVerif.className = "m-2 flex-1"
-  cardPTitreDoneesSaisie.className = "text-center font-bold text-2xl mb-2"
+  cardPTitreDoneesSaisie.className = "font-bold text-xl text-center line-clamp-1"
   cardPEtiquetteDPE.className = classLignePSimple
   cardPEtiquetteGES.className = classLignePSimple
   cardPDateEtablissement.className = classLignePSimple
@@ -351,8 +407,9 @@ function creationCarteDPE2(donnees, index) {
   cardPAnneeConstruction.textContent = `Année de construction : ${anneeConstruction}`;
   cardPSurfaceShon.textContent = `Surface SHON : ${donnees.results[index]["Surface_(SHON)"]}`;
   cardPSurfaceUtile.textContent = `Surface Utile : ${donnees.results[index]["Surface_utile"]}`;
-cardDivDPEDoneesVerif.appendChild(cardPMethodeDPE);
+
   // Ajout à la carte (div de vérif) : 
+  cardDivDPEDoneesVerif.appendChild(cardPMethodeDPE);
   cardDivDPEDoneesVerif.appendChild(cardPSecteurActivite);
   cardDivDPEDoneesVerif.appendChild(cardPAnneeConstruction);
   cardDivDPEDoneesVerif.appendChild(cardPSurfaceShon);
@@ -375,7 +432,11 @@ cardDivDPEDoneesVerif.appendChild(cardPMethodeDPE);
 
   // Ajout au conteneur :
   cardDivDPEEnglobe.appendChild(cardDivDPECarte)
-  return cardDivDPEEnglobe
+
+  //Ajout au Li : 
+  liCardDPE.appendChild(cardDivDPEEnglobe)
+
+  return liCardDPE
   // console.log(globalData.length)
   // console.log(globalData)
 };
@@ -459,3 +520,38 @@ boutonApres2021.addEventListener('click', (e) => {
 
 
 // Pour les tests : 5 Rue Louis-Jacques Daguerre 35136 Saint-Jacques-de-la-Lande
+
+
+// Sélectionnez un parent qui existe déjà au moment du chargement
+
+ConteneurDesCartes.addEventListener('click', function(event) {
+  event.preventDefault();
+  const button = event.target.closest('.toggleButton'); // Vérifie si l'élément cliqué est un bouton toggle
+
+  if (button) {
+    event.preventDefault(); // Empêche le comportement par défaut du bouton
+
+    let content;
+
+    if (!button.closest('.dropdown').querySelector('.content.hiddenessaie')) {
+        content = button.closest('.dropdown').querySelector('.content.show');
+    } else {
+        content = button.closest('.dropdown').querySelector('.content.hiddenessaie');
+    }
+    // console.log(content);
+    
+    if (content.classList.contains('hiddenessaie')) {
+        content.classList.remove('hiddenessaie'); // Retire la classe cachée
+        setTimeout(() => {
+            content.classList.add('show'); // Ajoute la classe pour afficher le contenu après un court délai
+        }, 10); // Un court délai pour permettre la transition
+    } else {
+        content.classList.remove('show'); // Retire la classe pour cacher le contenu
+        // Attendre la fin de la transition avant d'ajouter 'hidden'
+        content.addEventListener('transitionend', function handleTransitionEnd() {
+            content.classList.add('hiddenessaie'); // Ajoute la classe cachée après la transition
+            content.removeEventListener('transitionend', handleTransitionEnd); // Nettoie l'écouteur
+        });
+    }
+  }
+});
